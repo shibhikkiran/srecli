@@ -112,7 +112,7 @@ jobs:
       with:
         path: ./dist/*.tar.gz
   build_wheels:
-    name: Build wheels on ${{ matrix.target.os }}
+    name: Build wheels 
     runs-on: ${{ matrix.target.os }}
     strategy:
       matrix:
