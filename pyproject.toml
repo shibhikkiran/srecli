@@ -1,6 +1,6 @@
 [project]
 name = "srecli"
-version = "2023.05.26"
+version = "0.0.1"
 description = "CLI tool for common SRE related work"
 authors = [
     {name = "Shibhikkiran D", email = "shibhikkiran@example.com"},
