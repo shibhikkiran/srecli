@@ -3,18 +3,15 @@
 ##
 import os
 import sys
-import signal
 import traceback
 
 ##
 import click
-import readchar
 from loguru import logger
 
 
 FORMATTER = "{time:YYYY/MM/DD HH:mm:ss zz!UTC} | {level: <8} | {message}"
-#FORMATTER_DEBUG = "{time:YYYY/MM/DD HH:mm:ss zz!UTC} | {level: <8} | {file} | {function} | {module} | {name: ^15} | {process} | {thread} | {message}"
-FORMATTER_DEBUG = "{time:YYYY/MM/DD HH:mm:ss zz!UTC} | {level: <8} | {name}.{function}:{line} | PID={process} | {message}" 
+FORMATTER_DEBUG = "{time:YYYY/MM/DD HH:mm:ss zz!UTC} | {level: <8} | {name}.{function}:{line} | PID={process} | {message}"
 
 debug_mode = "--debug" in sys.argv
 
