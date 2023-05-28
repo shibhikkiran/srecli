@@ -135,23 +135,3 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         path: ./dist/*.whl
-  publish:
-    name: Publish package to PyPI
-    if: startsWith(github.event.ref, 'refs/tags/v')
-    needs:
-      - format
-      - lint
-      - typecheck
-      - test
-      - build_source_dist
-      - build_wheels
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/download-artifact@v2
-      with:
-        name: artifact
-        path: ./dist/
-    - uses: pypa/gh-action-pypi-publish@v1.5.0
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
