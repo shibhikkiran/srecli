@@ -1,0 +1,25 @@
+name: PyPI publish
+
+on: [push]
+
+jobs:
+  publish:
+    name: Publish package to PyPI 
+    if: startsWith(github.event.ref, 'refs/tags/v')
+    needs:
+      - format
+      - lint
+      - typecheck
+      - test
+      - build_source_dist
+      - build_wheels
+    runs-on: ubuntu-latest 
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: artifact
+        path: ./dist
+    - uses: pypa/gh-action-pypi-publish@v1.4.2
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
