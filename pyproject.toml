@@ -1,7 +1,7 @@
 [project]
 name = "srecli"
 version = "0.0.6"
-description = "CLI tool for common SRE related work"
+description = "srecli is a click based CLI tool to cater common SRE related system automation tasks."
 authors = [
     {name = "Shibhikkiran D", email = "shibhikkiran@example.com"},
 ]
