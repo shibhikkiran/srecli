@@ -1,4 +1,4 @@
-name: Build and Publish to PyPI
+name: Build Python Package
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install tox
+        python -m pip install -r requirements.txt
     - name: Formatting code with black
       run: |
         tox -e format
@@ -41,7 +41,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install tox
+        python -m pip install -r requirements.txt
     - name: Linting code with flake8
       run: |
         tox -e lint
@@ -60,7 +60,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install tox
+        python -m pip install -r requirements.txt
     - name: Type checking code with flake8
       run: |
         tox -e typecheck
@@ -85,7 +85,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install tox
+        python -m pip install -r requirements.txt
     - name: Testing code with pytest
       run: |
         tox -e ${{ matrix.python.toxenv }}
@@ -104,7 +104,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install build
+        python -m pip install -r requirements.txt
     - name: Building source distribution package
       run: |
         python -m build --sdist
@@ -128,7 +128,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install build
+        python -m pip install -r requirements.txt
     - name: Building wheels for ${{ matrix.target.os }}
       run: |
         python -m build --wheel
