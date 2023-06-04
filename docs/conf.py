@@ -20,6 +20,7 @@ extensions = [
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+nitpick_ignore = [('py:class', 'type')]
 
 # config to get package build version to be populated in docs
 from importlib import metadata
@@ -34,6 +35,7 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 
 # config for making sphinx-apidoc run as part of the Read the Docs build process
+import os
 if os.environ.get("READTHEDOCS") == "True":
     from pathlib import Path
 

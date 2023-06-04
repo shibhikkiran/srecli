@@ -47,6 +47,7 @@ class Context:
     """
     A class for setting context variables for CLI.
     """
+
     def __init__(self):
         self.verbose = False
         self.home = os.getcwd()
@@ -64,6 +65,7 @@ class SreCLI(click.MultiCommand):
     """
     A class to initialize CLI tool with all its subcommands and help messages.
     """
+
     list_commands_executed = False
 
     def list_commands(self, ctx):
