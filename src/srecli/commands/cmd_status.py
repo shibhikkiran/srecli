@@ -1,4 +1,9 @@
 # -*- config: utf-8 -*-
+"""
+cmd_status.py
+
+This module contains all subcommands for status command group.
+"""
 
 import os
 import time
@@ -10,6 +15,9 @@ from srecli.cli import pass_context
 
 @click.group()
 def cli():
+    """
+    Returns status command group.
+    """
     pass
 
 
@@ -33,11 +41,10 @@ def cli():
 )
 @pass_context
 def show(ctx, debug, dry_run, echo_msg):
-    click.echo(
-        f"{os.environ.get('SRECLI_TMP', None)}"
-    )
+    """
+    Returns show command.
+    """
     ctx.logger.debug("This is debug msg")
-    time.sleep(2)
     ctx.logger.info("This is info msg")
     ctx.logger.warning("This is warning msg")
     ctx.logger.error("This is error msg")

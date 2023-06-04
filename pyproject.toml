@@ -93,6 +93,7 @@ legacy_tox_ini = """
         typecheck
         format 
         lint
+        docs
 
     [testenv]
     deps = 
@@ -120,4 +121,23 @@ legacy_tox_ini = """
         flake8-bugbear
     commands =
         flake8 --extend-ignore E501 --exclude .tox,.git,__pycache__docs,build,dist --show-source --statistics {posargs:src tests}
+
+    [testenv:docs]
+    skip_install = True
+    deps =
+        sphinx
+        sphinx-nested-apidoc
+    commands =
+        sphinx-apidoc --force --implicit-namespaces --module-first --separate -o docs/reference/ src/srecli src/srecli/*.c src/srecli/*.so
+        sphinx-build -n -W --keep-going -b html docs/ docs/_build/
+
+    [testenv:devdocs]
+    skip_install = True
+    deps =
+        sphinx
+        sphinx-nested-apidoc
+        sphinx-autobuild
+    commands =
+        sphinx-apidoc --force --implicit-namespaces --module-first --separate -o docs/reference/ src/srecli src/srecli/*.c src/srecli/*.so
+        sphinx-autobuild -n -W -b html --port 9876 docs/ docs/_build/
 """

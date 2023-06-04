@@ -1,4 +1,9 @@
 # -*- config: utf-8 -*-
+"""
+cli.py
+
+This module contains basic wrapper to initliaize CLI object.
+"""
 
 ##
 import os
@@ -39,6 +44,9 @@ CONTEXT_SETTINGS = dict(
 
 
 class Context:
+    """
+    A class for setting context variables for CLI.
+    """
     def __init__(self):
         self.verbose = False
         self.home = os.getcwd()
@@ -53,9 +61,15 @@ cmd_folder = os.path.join(base_folder, "commands")
 
 
 class SreCLI(click.MultiCommand):
+    """
+    A class to initialize CLI tool with all its subcommands and help messages.
+    """
     list_commands_executed = False
 
     def list_commands(self, ctx):
+        """
+        Returns list of commands.
+        """
         pass
         rv = []
         for filename in os.listdir(cmd_folder):
@@ -68,6 +82,9 @@ class SreCLI(click.MultiCommand):
         return rv
 
     def get_command(self, ctx, name):
+        """
+        Gets a specific command given.
+        """
         mod = __import__(
             "srecli.commands.cmd_" + name,
             None,
@@ -94,6 +111,9 @@ class SreCLI(click.MultiCommand):
 )
 @pass_context
 def cli(ctx, debug, dry_run):
+    """
+    Return CLI object.
+    """
     pass
 
 
