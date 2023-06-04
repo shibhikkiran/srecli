@@ -34,6 +34,7 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 
 # config for making sphinx-apidoc run as part of the Read the Docs build process
+import os
 if os.environ.get("READTHEDOCS") == "True":
     from pathlib import Path
 
@@ -46,7 +47,7 @@ if os.environ.get("READTHEDOCS") == "True":
             "--force",
             "--implicit-namespaces",
             "--module-first",
-            "--seperate",
+            "--separate",
             "-o",
             str(PROJECT_ROOT / "docs" / "reference"),
             str(PACKAGE_ROOT),
