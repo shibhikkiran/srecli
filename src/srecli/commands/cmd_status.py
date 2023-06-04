@@ -5,8 +5,6 @@ cmd_status.py
 This module contains all subcommands for status command group.
 """
 
-import os
-import time
 import click
 
 
