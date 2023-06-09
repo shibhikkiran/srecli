@@ -13,6 +13,7 @@ Subpackages
    :maxdepth: 4
 
    srecli.commands
+   srecli.options
 
 Submodules
 ----------

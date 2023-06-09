@@ -8,12 +8,15 @@ This module contains basic wrapper to initliaize CLI object.
 ##
 import os
 import sys
+import platform
 import traceback
 
 ##
 import click
 from loguru import logger
 
+##
+from srecli.options.common import common_options
 
 FORMATTER = "{time:YYYY/MM/DD HH:mm:ss zz!UTC} | {level: <8} | {message}"
 FORMATTER_DEBUG = "{time:YYYY/MM/DD HH:mm:ss zz!UTC} | {level: <8} | {name}.{function}:{line} | PID={process} | {message}"
@@ -41,6 +44,15 @@ else:
 CONTEXT_SETTINGS = dict(
     auto_envvar_prefix="SRECLI"
 )
+
+
+def add_options(options):
+    def _add_options(func):
+        for option in reversed(options):
+            func = option(func)
+        return func
+
+    return _add_options
 
 
 class Context:
@@ -87,32 +99,42 @@ class SreCLI(click.MultiCommand):
         """
         Gets a specific command given.
         """
-        mod = __import__(
-            "srecli.commands.cmd_" + name,
-            None,
-            None,
-            ["cli"],
-        )
+        try:
+            mod = __import__(
+                "srecli.commands.cmd_" + name,
+                None,
+                None,
+                ["cli"],
+            )
+        except ImportError as err:
+            print(err)
+            return
+        current_os = platform.system()
+        if hasattr(mod, "SUPPORT_OS"):
+            if (
+                current_os.lower()
+                not in mod.SUPPORT_OS
+            ):
+                if SreCLI.list_commands_executed:
+                    return None
+                else:
+                    ctx.fail(
+                        f"This command {name} only support to be run on {','.join(mod.SUPPORT_OS)}"
+                    )
+        else:
+            ctx.fail(
+                f"SUPPORT_OS is not defined for your command {name} module."
+            )
+
         return mod.cli
 
 
+@add_options(common_options)
 @click.command(
     cls=SreCLI, context_settings=CONTEXT_SETTINGS
 )
-@click.option(
-    "--debug",
-    is_flag=True,
-    default=False,
-    help="Enables debug mode",
-)
-@click.option(
-    "--dry-run",
-    is_flag=True,
-    default=False,
-    help="Enables dry run mode",
-)
 @pass_context
-def cli(ctx, debug, dry_run):
+def cli(ctx, debug, dry_run, verbose):
     """
     Return CLI object.
     """
