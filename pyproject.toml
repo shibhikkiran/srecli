@@ -1,6 +1,7 @@
 [project]
 name = "srecli"
-version = "0.0.6"
+#version = "0.0.6"
+dynamic = ["version"]
 description = "srecli is a click based CLI tool to cater common SRE related system automation tasks."
 authors = [
     {name = "Shibhikkiran D", email = "shibhikkiran@example.com"},
@@ -22,11 +23,18 @@ build-backend = "setuptools.build_meta"
 requires = [
     "setuptools ~=63.2.0",
     "wheel ~=0.37.1",
-    "setuptools_scm[toml]",
+    "setuptools_scm[toml] ~=7.1.0",
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+
+[tool.setuptools_scm]
+write_to = "src/_version.py"
+version_scheme = "python-simplified-semver"
+local_scheme = "no-local-version"
+
 
 [project.scripts]
 srecli = 'srecli.cli:cli'
